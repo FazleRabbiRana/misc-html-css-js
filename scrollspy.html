@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Scrollspy: On Page Scroll Active Menu Link Indicator</title>
+
+	<!-- common stylesheet -->
+	<link rel="stylesheet" href="./style.css">
+	<!-- common js -->
+	 <script src="./script.js" defer></script>
+
+	<!-- Custom Styles -->
+	<style>
+		html, body {
+			font-size: 20px;
+			line-height: 1.8;
+		}
+		section {
+			min-height: 55vh;
+			background: #f7f7f7;
+			color: #2b2b2b;
+			padding: 100px 20px;
+			outline: 2px solid red;
+			margin-block: 30px;
+		}
+		h2 {
+			text-align: center;
+			text-transform: uppercase;
+			margin-bottom: 30px;
+		}
+		p + p {
+			margin-top: 50px;
+		}
+
+		/* 
+		* Navbar Styles 
+		*/
+		#header_main {
+			--height: 80px;
+			width: min(850px, 100% - 30px);
+			height: var(--height);
+			margin: 0 auto;
+			background-color: #000;
+			border: 1px solid #fff;
+			border-radius: 50px;
+			display: grid;
+			place-items: center;
+			position: fixed;
+			top: auto;
+			bottom: 20px;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+		#header_main,
+		#header_main * {
+			box-sizing: border-box;
+		}
+		.navbar {
+			padding: 5px 30px;
+		}
+		.navbar,
+		.navbar__menu {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: relative;
+		}
+		.navbar a {
+			color: #fff;
+			font-family: Montserrat, sans-serif;
+			font-weight: 600;
+			font-size: 18px;
+			line-height: 1;
+			text-decoration: none;
+			text-transform: capitalize;
+		}
+		.navbar .navbar__brand {
+			flex: 0 0 auto;
+			color: #fff;
+			font-weight: bold;
+			font-size: 20px;
+			text-transform: none;
+			display: none;
+		}
+		.navbar__menu a {
+			padding: 5px;
+		}
+		.navbar__menu a:is(:hover, .active) {
+			color: #f0b537;
+			scale: 1.1;
+		}
+		.navbar .icon {
+			width: 20px;
+		}
+		/* Mobile menu toggler */
+		#mobile_menu_toggler {
+			z-index: 1;
+			cursor: pointer;
+			display: none;
+			place-items: center;
+			text-align: center;
+			font-size: 24px;
+			line-height: 1;
+			width: 40px;
+			height: auto;
+			padding: 7px 5px;
+			background: #fff;
+			border: 0;
+			box-shadow: none;
+			border-radius: 8px;
+			transition: all 0.3s;
+		}
+		#mobile_menu_toggler:is(:hover, :focus) {
+			background: #f2f0eb;
+			border: 0;
+			box-shadow: none;
+		}
+		
+		/* Responsive */
+		@media (max-width: 600px) {
+			#header_main {
+				--height: 60px;
+				bottom: auto;
+				top: 0;
+				border-radius: 12px;
+			}
+			.navbar {
+				padding: 5px 12px;
+			}
+			.navbar .navbar__brand,
+			#mobile_menu_toggler {
+				display: grid;
+			}
+			.navbar__menu {
+				display: block;
+				height: auto;
+				max-height: calc(100vh - var(--height) * 2);
+				overflow-y: auto;
+				text-align: left;
+				background-color: #000;
+				border-bottom: 1px solid #f2f0eb;
+				border-radius: 12px;
+				margin-top: 5px;
+				padding: 15px;
+				position: absolute;
+				left: 0;
+				top: 100%;
+				transform: translateY(-150%);
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.5s ease;
+			}
+			.navbar__menu.open {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
+			}
+			.navbar__menu a {
+				display: block;
+				width: max-content;
+				margin: 10px 0 10px -5px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+
+		<!-- Header Navbar Markup -->
+		<header id="header_main">
+			<nav class="navbar">
+				<a href="#home" class="navbar__brand">BRAND</a>
+				<div class="navbar__menu open">
+					<a href="#home" class="active">
+						<img src="https://app.unbouncepreview.com/publish/assets/1e545681-9f68-4ba8-bef0-553c2aad73a2/d20d830e-icon-to-top-fancy-white.svg" alt="To top" class="icon" />
+					</a>
+					<a href="#benefits">Benefits</a>
+					<a href="#work">Recent Work</a>
+					<a href="#scope">Scope of Work</a>
+					<a href="#pricing">Pricing</a>
+					<a href="#faq">FAQs</a>
+					<a href="#login">Login</a>
+				</div>
+				<button type="button" id="mobile_menu_toggler">
+					<img src="https://app.unbouncepreview.com/publish/assets/b9494c27-0103-405b-914a-9034d15745d1/fce21ae5-icon-hamburger-menu.svg" alt="Hamburger" class="icon" />
+				</button>
+			</nav>
+		</header>
+
+
+		<section class="section--parent" id="home">
+			<div class="container">
+				<h2>Home</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, ipsum veritatis! Necessitatibus est inventore officiis earum fuga, repellat quae? Sint voluptas sed illum. Maiores, pariatur consequuntur fuga nulla deleniti voluptatum totam eaque, aliquam eligendi adipisci recusandae voluptate molestias inventore sint ratione tenetur, debitis reprehenderit tempora? Magnam, nam quam dolorem eos repudiandae consequuntur in unde commodi saepe porro maiores itaque error, aliquam ullam facere optio est eius distinctio, tenetur esse dignissimos. Pariatur cum provident vel corrupti ex nesciunt debitis odio itaque officia, ipsa repellendus minus culpa accusamus quasi quidem et adipisci quo necessitatibus repudiandae quaerat soluta nostrum at! Vel, laudantium omnis.</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+			</div>
+		</section>
+
+		<section class="section--parent" id="benefits">
+			<div class="container">
+				<h2>Benefits</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni omnis culpa id iusto cumque, sit repudiandae aliquam porro aut? Ab repudiandae eius repellendus saepe illum, quas totam commodi sequi placeat nulla soluta. Quod dolore sed reiciendis officiis eum at aliquid ad repudiandae, aut alias error corrupti labore obcaecati dolores consequuntur id eveniet harum est? Exercitationem quaerat officia quae distinctio cumque facilis ut nemo, expedita magni deleniti molestias autem perspiciatis vitae ad unde sint esse odio error blanditiis ducimus. Asperiores, sit!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+			</div>
+		</section>
+
+		<section class="section--parent" id="scope">
+			<div class="container">
+				<h2>Scope</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates laboriosam natus voluptatum culpa, harum nobis cumque voluptas numquam suscipit nesciunt a repellendus. Est quos voluptatem dolor aut iure, omnis nisi rerum eveniet vero eaque laborum a esse voluptates velit maxime.</p>
+			</div>
+		</section>
+
+		<section id="nothing">
+			<div class="container">
+				<h2>Nothing</h2>
+				<p>Nihil minus harum illo labore corporis laudantium nisi maxime, beatae, aliquid itaque et ratione distinctio eaque cumque, reiciendis ipsum! Non labore a delectus velit incidunt itaque fuga commodi eaque, veritatis corporis similique amet, ullam minus, error qui. Ipsam, ipsa, rerum obcaecati explicabo quasi at, vel mollitia nihil fugiat cupiditate omnis? Magni provident dolores et ut incidunt necessitatibus blanditiis beatae, earum sed similique voluptatum laudantium quis ipsam quasi non aut aliquid iusto nisi debitis rem veniam asperiores voluptas! Nostrum corporis quibusdam rerum fuga vel, quae non ipsum? Sequi, ab! Atque dolores soluta, corrupti cum voluptas magni, itaque ducimus est dolorem et eaque eligendi nulla ipsa omnis rerum quidem ut in assumenda nesciunt exercitationem doloremque neque nobis blanditiis eius. Expedita velit quis nobis minus architecto aliquam fugiat veritatis praesentium dolorum soluta, reiciendis atque sapiente temporibus neque ab unde ullam iste placeat non ipsum! Qui, quaerat!</p>
+				<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia. A velit nesciunt quidem. Provident rem nulla debitis a officia, animi totam itaque aliquid ad id corrupti illum quidem doloribus sit modi quia quasi quaerat optio? Aperiam, ut aspernatur!</p>
+				<p>Non labore a delectus velit incidunt itaque fuga commodi eaque, veritatis corporis similique amet, ullam minus, error qui. Ipsam, ipsa, rerum obcaecati explicabo quasi at, vel mollitia nihil fugiat cupiditate omnis? Magni provident dolores et ut incidunt necessitatibus blanditiis beatae, earum sed similique voluptatum laudantium quis ipsam quasi non aut aliquid iusto nisi debitis rem veniam asperiores voluptas! Nostrum corporis quibusdam rerum fuga vel, quae non ipsum? Sequi, ab! Atque dolores soluta, corrupti cum voluptas magni, itaque ducimus est dolorem et eaque eligendi nulla ipsa omnis rerum quidem ut in assumenda nesciunt exercitationem doloremque neque nobis blanditiis eius. Expedita velit quis nobis minus architecto aliquam fugiat veritatis praesentium dolorum soluta, reiciendis atque sapiente temporibus neque ab unde ullam iste placeat non ipsum! Qui, quaerat! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia. A velit nesciunt quidem. Provident rem nulla debitis a officia, animi totam itaque aliquid ad id corrupti illum quidem doloribus sit modi quia quasi quaerat optio? Aperiam, ut aspernatur!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia.</p>
+			</div>
+		</section>
+
+		<section class="section--parent" id="work">
+			<div class="container">
+				<h2>Work</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+			</div>
+		</section>
+
+		<section class="section--parent" id="nothing2">
+			<div class="container">
+				<h2>Nothing-2</h2>
+				<p>Nihil minus harum illo labore corporis laudantium nisi maxime, beatae, aliquid itaque et ratione distinctio eaque cumque, reiciendis ipsum! Non labore a delectus velit incidunt itaque fuga commodi eaque, veritatis corporis similique amet, ullam minus, error qui. Ipsam, ipsa, rerum obcaecati explicabo quasi at, vel mollitia nihil fugiat cupiditate omnis? Magni provident dolores et ut incidunt necessitatibus blanditiis beatae, earum sed similique voluptatum laudantium quis ipsam quasi non aut aliquid iusto nisi debitis rem veniam asperiores voluptas! Nostrum corporis quibusdam rerum fuga vel, quae non ipsum? Sequi, ab! Atque dolores soluta, corrupti cum voluptas magni, itaque ducimus est dolorem et eaque eligendi nulla ipsa omnis rerum quidem ut in assumenda nesciunt exercitationem doloremque neque nobis blanditiis eius. Expedita velit quis nobis minus architecto aliquam fugiat veritatis praesentium dolorum soluta, reiciendis atque sapiente temporibus neque ab unde ullam iste placeat non ipsum! Qui, quaerat!</p>
+				<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia. A velit nesciunt quidem. Provident rem nulla debitis a officia, animi totam itaque aliquid ad id corrupti illum quidem doloribus sit modi quia quasi quaerat optio? Aperiam, ut aspernatur!</p>
+				<p>Non labore a delectus velit incidunt itaque fuga commodi eaque, veritatis corporis similique amet, ullam minus, error qui. Ipsam, ipsa, rerum obcaecati explicabo quasi at, vel mollitia nihil fugiat cupiditate omnis? Magni provident dolores et ut incidunt necessitatibus blanditiis beatae, earum sed similique voluptatum laudantium quis ipsam quasi non aut aliquid iusto nisi debitis rem veniam asperiores voluptas! Nostrum corporis quibusdam rerum fuga vel, quae non ipsum? Sequi, ab! Atque dolores soluta, corrupti cum voluptas magni, itaque ducimus est dolorem et eaque eligendi nulla ipsa omnis rerum quidem ut in assumenda nesciunt exercitationem doloremque neque nobis blanditiis eius. Expedita velit quis nobis minus architecto aliquam fugiat veritatis praesentium dolorum soluta, reiciendis atque sapiente temporibus neque ab unde ullam iste placeat non ipsum! Qui, quaerat! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia. A velit nesciunt quidem. Provident rem nulla debitis a officia, animi totam itaque aliquid ad id corrupti illum quidem doloribus sit modi quia quasi quaerat optio? Aperiam, ut aspernatur!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur incidunt magni odio id eveniet asperiores aspernatur debitis consequatur ad deleniti ipsum, adipisci quod totam voluptatem minima veritatis officia.</p>
+			</div>
+		</section>
+
+		<section class="section--parent" id="pricing">
+			<div class="container">
+				<h2>Pricing</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aut ipsam odit hic accusantium nihil harum sed explicabo, quisquam facilis neque eos fuga laboriosam quae consequatur illo distinctio provident sunt aperiam corrupti a? Dicta accusantium placeat facere suscipit sed iusto, voluptas aliquid molestiae atque itaque laboriosam, similique necessitatibus laudantium magni!</p>
+			</div>
+		</section>
+
+	</div>
+
+
+	<!-- Navbar JS -->
+	<script>
+		// START: window load function.
+		window.addEventListener('load', () => {
+			/*
+			* Scrollspy: active menu item indicator on scroll
+			*/
+			let sections = document.querySelectorAll('section');
+			let navLinkSelector = '.navbar__menu a';
+
+			myScrollspy(sections, navLinkSelector);
+
+			// START: scrollspy function.
+			function myScrollspy(sectionElements, linkElementSelector) {
+				window.onscroll = () => {
+					const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+					const viewportHeight = window.innerHeight;
+
+					for(let section in sectionElements) {
+						const sectionDistanceTop = sectionElements[section].offsetTop;
+						const triggerDistanceTop = sectionDistanceTop - (viewportHeight * 0.5);
+
+						if(sectionElements.hasOwnProperty(section) && triggerDistanceTop <= scrollPosition) {
+							const sectionID = sectionElements[section].id;
+							let recentActiveItem = document.querySelector(linkElementSelector + '.active');
+							let targetActiveItem = document.querySelector(`${linkElementSelector}[href*=${sectionID}]`);
+							
+							recentActiveItem && recentActiveItem.classList.remove('active');
+							targetActiveItem && targetActiveItem.classList.add('active');
+						}
+					}
+				};
+			}
+			// END: scrollspy function.
+		});
+		// END: window load function.
+	</script>
+</body>
+</html>
